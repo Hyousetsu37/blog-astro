@@ -1,9 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import BlogPost from "@components/BlogPost.astro";
 import Layout from "../layouts/Layout.astro";
-import TypedBlogPost from "@components/TypedBlogPost.astro";
 
-const blogPosts = await getCollection("blog");
+const posts = await Astro.glob("@pages/posts/*.{mdx,md}");
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout title="David's Blog">
@@ -13,10 +15,11 @@ const blogPosts = await getCollection("blog");
       <h1
         class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white"
       >
-        David's Blog
+        From the blog
       </h1>
+
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-        {blogPosts.map((post) => <TypedBlogPost post={post} />)}
+        {posts.map((post) => <BlogPost {...post} />)}
       </div>
     </div>
   </section>
