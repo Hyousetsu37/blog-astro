@@ -15,6 +15,7 @@ const blogPosts = await getCollection("blog");
       >
         David's Blog
       </h1>
+      <a class="text-blue-600 hover:underline" href="/blog/1">Paginated blog</a>
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
         {blogPosts.map((post) => <TypedBlogPost post={post} />)}
       </div>

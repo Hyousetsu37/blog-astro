@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 
 const blogCollection = defineCollection({
   type: "content",
@@ -9,14 +9,27 @@ const blogCollection = defineCollection({
       description: z.string(),
       image: image(),
       //Relation
-      author: z.string(),
+      // author: z.string(),
+      author: reference("author"),
       //Relation
       tags: z.array(z.string()),
+      //Boolean
+      isDraft: z.boolean().default(false),
+    }),
+});
+
+const authorCollection = defineCollection({
+  type: "data",
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      avatar: image(),
     }),
 });
 
 export const collections = {
   blog: blogCollection,
+  author: authorCollection,
 };
 
 //blog <-- Same name as the folder
