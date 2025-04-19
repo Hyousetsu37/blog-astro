@@ -21,6 +21,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { blogPosts, author } = Astro.props;
+const {author:id} = Astro.params
 ---
 
 <Layout>
@@ -35,6 +36,7 @@ const { blogPosts, author } = Astro.props;
         {
           author && (
             <Image
+            transition:name=`${id}-avatar`
               class="rounded-full"
               src={author.avatar}
               alt={author.name}

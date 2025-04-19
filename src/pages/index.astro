@@ -3,7 +3,10 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import TypedBlogPost from "@components/TypedBlogPost.astro";
 
-const blogPosts = await getCollection("blog");
+const blogPosts = await getCollection(
+  "blog",
+  (post) => post.data.isDraft === false
+);
 ---
 
 <Layout title="David's Blog">
@@ -15,7 +18,10 @@ const blogPosts = await getCollection("blog");
       >
         David's Blog
       </h1>
-      <a class="text-blue-600 hover:underline" href="/blog/1">Paginated blog</a>
+      <a class="mr-2 text-blue-600 hover:underline" href="/blog/1"
+        >Paginated blog</a
+      >
+      <a class="text-blue-600 hover:underline" href="/authors">Authors</a>
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
         {blogPosts.map((post) => <TypedBlogPost post={post} />)}
       </div>
